@@ -1,0 +1,22 @@
+graph TD
+    User["User (Child / Parent)"] --> CLI["CLI Interface (main.py)"]
+
+    CLI --> Intent["Intent Detection"]
+    CLI --> State["Conversation State"]
+
+    Intent -->|New Story| Loop["StoryLoop"]
+    Intent -->|Modify Story| Loop
+
+    State --> Loop
+
+    Loop --> Storyteller["Storyteller Agent (LLM)"]
+    Storyteller --> Loop
+
+    Loop --> Judge["Judge Agent (LLM)"]
+    Judge -->|Score & Feedback| Loop
+
+    Loop -->|Refinement Needed| Storyteller
+    Loop -->|Accept Story| State
+
+    State --> CLI
+    CLI --> User
