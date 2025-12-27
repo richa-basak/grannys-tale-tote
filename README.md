@@ -8,7 +8,7 @@ The system is designed to feel like a warm conversation with “Granny,” while
 
 ---
 
-## ✨ What this project does
+## What this project does
 
 - Generates bedtime-appropriate stories for children aged 5–10
 - Supports conversational interaction (e.g. “make it shorter”, “change the ending”)
@@ -18,7 +18,7 @@ The system is designed to feel like a warm conversation with “Granny,” while
 
 ---
 
-## 🧠 System design overview
+## System design overview
 
 The system uses a two-agent architecture coordinated by a story loop:
 
@@ -35,63 +35,9 @@ The judge never speaks to the user — it operates silently as a quality gate.
 
 ---
 
-## 🔁 Story flow (high level)
+## Mermaid diagram for system design flow (high level)`
 
-User
-↓
-Intent Detection (new story vs modify)
-↓
-Storyteller Agent (story arc enforced)
-↓
-Judge Agent (quality & safety check)
-↓
-(Optional refinement loop)
-↓
-Final story shown to user
-
-
----
-
-## 📖 Story arcs
-
-Every story follows the same 4-stage arc, enforced through prompting:
-
-1. **Setup** – Introduce character and cozy setting  
-2. **Gentle Challenge** – A small, non-scary problem or curiosity  
-3. **Resolution** – Solved through kindness, courage, or curiosity  
-4. **Warm Ending** – Calm reassurance and a gentle lesson  
-
-This improves consistency, emotional safety, and bedtime suitability.
-
----
-
-## 🗂️ Project structure
-
-grannys-tale-tote/
-├── README.md
-├── requirements.txt
-├── .gitignore
-├── .env.example
-│
-├── app/
-│ ├── main.py
-│ ├── agents/
-│ │ ├── storyteller.py
-│ │ └── judge.py
-│ ├── pipeline/
-│ │ └── story_loop.py
-│ ├── prompts/
-│ │ ├── storyteller_prompt.py
-│ │ └── judge_prompt.py
-│ ├── state/
-│ │ └── conversation.py
-│ └── utils/
-│ ├── llm_client.py
-│ └── intent.py
-│
-└── diagrams/
-└── system_flow.mmd
-
+[system_flow.mmd](diagrams/system_flow.mmd)
 
 ---
 
@@ -147,16 +93,6 @@ Type `good night`, `bye`, or `exit` to end the session.
 
 ---
 
-## 🤖 Why an LLM Judge?
-
-The judge simulates a human reviewer:
-- Ensures stories are age-appropriate
-- Improves clarity and emotional tone
-- Makes the system safer without reducing creativity
-
-This mirrors real-world content review workflows while remaining fully LLM-native.
-
----
 
 ## ⏱️ What I would build next (with 2 more hours)
 
