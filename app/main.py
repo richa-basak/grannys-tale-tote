@@ -1,25 +1,51 @@
 # TODO
 """
 Before submitting the assignment, describe here in a few sentences what you would have built next if you spent 2 more hours on this project:
-- Add user feedback iteration (e.g., 'shorter', 'more animals', 'calmer')
-- Add age tuning (5–7 vs 8–10 vocabulary) and length presets
-- Add stronger output validation (length, bedtime tone, forbidden themes) + better JSON-repair for judge
+- Persist conversation state across sessions
+- Add parent controls and bedtime modes (calm / playful)
+- Add memory trimming and stronger safety validation
 """
 
 from app.pipeline.story_loop import StoryLoop
+from app.state.conversation import ConversationState
 
 
 def main():
-    user_input = input("What kind of story do you want to hear? ")
+    EXIT_PHRASES = {
+        "bye",
+        "bye bye",
+        "byee",
+        "tata",
+        "gtg",
+        "got to go now",
+        "enough",
+        "stop",
+        "ok bye",
+        "good night",
+        "goodnight",
+        "night",
+        "exit",
+        "quit",
+    }
+
+    print("\n🧶 Granny’s Tote of Tiny Tales")
+    print("Talk to Granny! Type 'goodnight' to end.\n")
 
     loop = StoryLoop()
-    result = loop.run(user_input)
+    state = ConversationState()
 
-    print("\n📖 Your Bedtime Story:\n")
-    print(result["final_story"])
-    print("\n✨ Details:")
-    print(f"Judge Score: {result['final_score']}/10")
-    print(f"Revisions: {result['revisions']}")
+    while True:
+        user_input = input("You: ").strip().lower()
+
+        if any(phrase in user_input for phrase in EXIT_PHRASES):
+            print("\nGranny: Sleep tight, dear 🌙")
+            break
+
+        response = loop.run_turn(state, user_input)
+
+        print("\nGranny:")
+        print(response)
+        print()
 
 
 if __name__ == "__main__":
